@@ -1,0 +1,49 @@
+.ScreenBtn{
+    border: none;
+    border-radius: 15px;
+    padding: 5px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.fullScreenBtn {
+    background-color: rgba(85, 160, 185, .3);
+}
+
+
+.fullScreenBtn:hover {
+    background-color: rgb(85, 160, 185);
+}
+
+
+.fullScreenBtnOP {
+    background-color: rgba(85, 160, 185, .3);
+}
+
+.fullScreenBtnOP:hover {
+    background-color: rgb(85, 160, 185);
+}
+
+.exitFullScreenBtn {
+    background-color: rgba(238, 39, 72, .3);
+    color: white;
+}
+
+.exitFullScreenBtn:hover {
+    background-color: rgba(238, 39, 72, 1);
+}
+
+.fullScreenWin{
+    position: fixed !important;
+    top: 0 !important;
+    left:0 !important;
+    width:100vw !important;
+    height:100vh !important;
+    overflow: auto;
+}
+
+.fullScreenHide{
+display: none !important;
+}
