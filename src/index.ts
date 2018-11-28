@@ -27,18 +27,12 @@ const extension: JupyterLabPlugin<void> = {
       [].forEach.call(document.querySelectorAll('.fullScreenBtn'), function (el:HTMLElement) {
         el.remove();
       });
-
       let b1 = document.createElement('button');
       b1.className = "fullScreenBtn";
       b1.classList.add("ScreenBtn");
-      b1.innerHTML = "<div>cell in full-screen</div>";
-      sender.activeCell.node.insertBefore(b1, sender.activeCell.node.getElementsByClassName("jp-Cell-inputWrapper").item(0));
-
-      let btns: HTMLCollection = document.getElementsByClassName("fullScreenBtn");
+      b1.title = "cell in full-screen";
+      b1.addEventListener("click", (e:Event) => getfullscreen());
       
-      for(let i = 0;i<btns.length;i++){
-        btns.item(i).addEventListener("click", (e:Event) => getfullscreen());
-      }
       // second button
       [].forEach.call(document.querySelectorAll('.fullScreenBtnOP'), function (el:HTMLElement) {
         el.remove();
@@ -46,13 +40,24 @@ const extension: JupyterLabPlugin<void> = {
       let b2 = document.createElement('button');
       b2.className = "fullScreenBtnOP";
       b2.classList.add("ScreenBtn");
-      b2.innerHTML = "<div>output in full-screen</div>";
-      sender.activeCell.node.insertBefore(b2, sender.activeCell.node.getElementsByClassName("jp-Cell-outputWrapper").item(0));
+      b2.title ="only show output";
+      b2.addEventListener("click", (e:Event) => getfullscreenOP());
 
-      let btns2: HTMLCollection = document.getElementsByClassName("fullScreenBtnOP");
-      for(let i = 0;i<btns2.length;i++){
-        btns2.item(i).addEventListener("click", (e:Event) => getfullscreenOP());
+      // 3rd button
+      let b3 = document.createElement('button');
+      b3.className = "exitFullScreenBtn";
+      b3.classList.add("ScreenBtn");
+      b3.title ="exit full screen mode"
+      b3.addEventListener("click", (e:Event) => exitFullScreen());
+
+      // create 1st and 2nd button if needed
+      sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b1);
+
+      if (sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").length > 0)
+      {
+        sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b2);
       }
+      
        
       // full-screen function
       function getfullscreen(){
@@ -100,17 +105,8 @@ const extension: JupyterLabPlugin<void> = {
           fb.remove();
         });
 
-        // 3rd button
-        let b3 = document.createElement('button');
-        b3.className = "exitFullScreenBtn";
-        b3.classList.add("ScreenBtn");
-        b3.innerHTML = "<div>exit ful-screen mode</div>";
-        sender.activeCell.node.insertBefore(b3, sender.activeCell.node.childNodes[0]);
-
-        let btns3: HTMLCollection = document.getElementsByClassName("exitFullScreenBtn");
-        for(let i = 0;i<btns3.length;i++){
-          btns3.item(i).addEventListener("click", (e:Event) => exitFullScreen());
-        }
+        // create exit button   
+        sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b3);
 
        }
 
@@ -123,6 +119,10 @@ const extension: JupyterLabPlugin<void> = {
       [].forEach.call(document.querySelectorAll('.jp-Cell-inputWrapper'), function (ip:HTMLElement) {
         ip.classList.add("fullScreenHide");
       });
+
+      // create exit button
+      sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b3);
+      console.log("function is activated!");
       
 
       } 
@@ -147,9 +147,13 @@ const extension: JupyterLabPlugin<void> = {
           eb.remove();
         });
 
-        // make fullscreen buttons back
-        sender.activeCell.node.insertBefore(b1, sender.activeCell.node.getElementsByClassName("jp-Cell-inputWrapper").item(0));
-        sender.activeCell.node.insertBefore(b2, sender.activeCell.node.getElementsByClassName("jp-Cell-outputWrapper").item(0));
+        // create 1st and 2nd button if needed
+        sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b1);
+
+        if (sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").length > 0)
+        {
+          sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b2);
+        }
   
         } 
 

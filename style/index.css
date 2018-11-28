@@ -1,14 +1,19 @@
 .ScreenBtn{
+    display: block;
     border: none;
-    border-radius: 15px;
-    padding: 5px;
-    margin-left: 10px;
+    border-radius: 3px;
+    margin-left: 22px;
     margin-top: 10px;
-    margin-bottom: 5px;
     cursor: pointer;
+    height: 20px;
+    width: 20px;
 }
 
 .fullScreenBtn {
+    background-image: url("images/FullScreen.png");
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
     background-color: rgba(85, 160, 185, .3);
 }
 
@@ -19,6 +24,10 @@
 
 
 .fullScreenBtnOP {
+    background-image: url("images/ShowResult.png");
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
     background-color: rgba(85, 160, 185, .3);
 }
 
@@ -27,6 +36,10 @@
 }
 
 .exitFullScreenBtn {
+    background-image: url("images/Close.png");
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;
     background-color: rgba(238, 39, 72, .3);
     color: white;
 }
