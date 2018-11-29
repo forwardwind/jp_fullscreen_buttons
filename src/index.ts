@@ -50,12 +50,28 @@ const extension: JupyterLabPlugin<void> = {
       b3.title ="exit full screen mode"
       b3.addEventListener("click", (e:Event) => exitFullScreen());
 
+      // 4rd button (same as b1)
+      let b4 = document.createElement('button');
+      b4.className = "fullScreenBtn";
+      b4.classList.add("ScreenBtn");
+      b4.title ="cell in full-screen";
+      b4.addEventListener("click", (e:Event) => getfullscreen());
+
+      // 5th button (same as b2)
+      let b5 = document.createElement('button');
+      b5.className = "fullScreenBtnOP";
+      b5.classList.add("ScreenBtn");
+      b5.title = "only show output";
+      b5.addEventListener("click", (e:Event) => getfullscreenOP());
+
       // create 1st and 2nd button if needed
       sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b1);
 
       if (sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").length > 0)
       {
         sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b2);
+        sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b4);
+        sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b5);
       }
       
        
