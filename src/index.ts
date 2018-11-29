@@ -62,37 +62,35 @@ const extension: JupyterLabPlugin<void> = {
       // full-screen function
       function getfullscreen(){
 
-        // hide all cells
-        [].forEach.call(document.querySelectorAll('.jp-Cell'), function (ec:HTMLElement) {
-          ec.classList.add("fullScreenHide");
-        });
-
-   
-        // only show the activated cell
-        sender.activeCell.node.classList.remove("fullScreenHide");
-
-
-
+        console.log(sender.activeCell.node);
         // make notebook window full screen
+
+        
         [].forEach.call(document.querySelectorAll('.p-DockPanel'), function (notebook_window:HTMLElement) {
-          notebook_window.classList.add("fullScreenWin");
+          if (notebook_window.contains(sender.activeCell.node))
+          {notebook_window.classList.add("fullScreenWin");}
+          });
+        [].forEach.call(document.querySelectorAll('.jp-NotebookPanel'), function (P1:HTMLElement) {
+          P1.classList.add("fullScreenHide");
+            });
+        [].forEach.call(document.querySelectorAll('.jp-NotebookPanel-notebook'), function (P2:HTMLElement) {
+          P2.classList.add("fullScreenHide");
           });
         [].forEach.call(document.querySelectorAll('.jp-NotebookPanel'), function (notebook_inner_window:HTMLElement) {
-          notebook_inner_window.classList.add("fullScreenWin");
+          if (notebook_inner_window.contains(sender.activeCell.node))
+          {notebook_inner_window.classList.add("fullScreenWin");}
           });
         [].forEach.call(document.querySelectorAll('.jp-NotebookPanel-notebook'), function (notebook_inin_window:HTMLElement) {
-          notebook_inin_window.classList.add("fullScreenWin");
+          if (notebook_inin_window.contains(sender.activeCell.node))
+          {notebook_inin_window.classList.add("fullScreenWin");}
           });
       
-
-  
-
         // hide other elements
         document.getElementById("jp-top-panel").classList.add("fullScreenHide");
+        document.getElementById("jp-left-stack").classList.add("fullScreenHide");
         [].forEach.call(document.querySelectorAll('.p-TabBar'), function (TabBar:HTMLElement) {
           TabBar.classList.add("fullScreenHide");
            });
-        document.getElementById("jp-left-stack").classList.add("fullScreenHide");
         [].forEach.call(document.querySelectorAll('.jp-NotebookPanel-toolbar'), function (toolbar:HTMLElement) {
           toolbar.classList.add("fullScreenHide");
            });
@@ -100,6 +98,13 @@ const extension: JupyterLabPlugin<void> = {
           DockPanel_tabBar.classList.add("fullScreenHide");
           });
 
+        // hide all cells
+        [].forEach.call(document.querySelectorAll('.jp-Cell'), function (ec:HTMLElement) {
+          ec.classList.add("fullScreenHide");
+        });
+
+        // only show the activated cell
+        sender.activeCell.node.classList.remove("fullScreenHide");
         // remove full screen buttons
         [].forEach.call(document.querySelectorAll('.fullScreenBtn, .fullScreenBtnOP'), function (fb:HTMLElement) {
           fb.remove();

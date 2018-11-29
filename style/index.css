@@ -47,8 +47,11 @@
 .exitFullScreenBtn:hover {
     background-color: rgba(238, 39, 72, 1);
 }
-
+.fullScreenHide{
+    display: none !important;
+    }
 .fullScreenWin{
+    display: block !important;
     position: fixed !important;
     top: 0 !important;
     left:0 !important;
@@ -57,6 +60,3 @@
     overflow: auto;
 }
 
-.fullScreenHide{
-display: none !important;
-}
