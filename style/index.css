@@ -60,3 +60,8 @@
     overflow: auto;
 }
 
+.jp-OutputArea-output.jp-RenderedText{
+    max-height:60vh !important;
+    overflow:auto;
+}
+

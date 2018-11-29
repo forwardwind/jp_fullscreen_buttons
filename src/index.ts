@@ -191,6 +191,8 @@ const extension: JupyterLabPlugin<void> = {
         }
 
         isFW = false;
+
+        sender.activeCell.node.scrollIntoView(true);
   
         } 
 
