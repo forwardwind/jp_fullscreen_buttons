@@ -21,7 +21,12 @@ const extension: JupyterLabPlugin<void> = {
 
     console.log("Yunfei's buttons are activited");
 
+    // full window mode or not?
+    let isFW:boolean = false;
+
     notebooks.activeCellChanged.connect((sender, )=>{
+
+
 
       // first button
       [].forEach.call(document.querySelectorAll('.fullScreenBtn'), function (el:HTMLElement) {
@@ -63,25 +68,31 @@ const extension: JupyterLabPlugin<void> = {
       b5.classList.add("ScreenBtn");
       b5.title = "only show output";
       b5.addEventListener("click", (e:Event) => getfullscreenOP());
+     
 
-      // create 1st and 2nd button if needed
-      sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b1);
-
-      if (sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").length > 0)
+      if (isFW)
       {
-        sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b2);
-        sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b4);
-        sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b5);
+        // create exit button   
+        sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b3);
+      }
+      else
+      {
+        // create buttons if needed
+        sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b1);
+
+        if (sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").length > 0)
+        {
+          sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b2);
+          sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b4);
+          sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b5);
+        }
       }
       
        
       // full-screen function
       function getfullscreen(){
 
-        console.log(sender.activeCell.node);
         // make notebook window full screen
-
-        
         [].forEach.call(document.querySelectorAll('.p-DockPanel'), function (notebook_window:HTMLElement) {
           if (notebook_window.contains(sender.activeCell.node))
           {notebook_window.classList.add("fullScreenWin");}
@@ -129,12 +140,13 @@ const extension: JupyterLabPlugin<void> = {
         // create exit button   
         sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b3);
 
+        isFW = true;
+
        }
 
       function getfullscreenOP(){
       
       getfullscreen();
-      
 
       // only show output (hide input)
       [].forEach.call(document.querySelectorAll('.jp-Cell-inputWrapper'), function (ip:HTMLElement) {
@@ -174,7 +186,11 @@ const extension: JupyterLabPlugin<void> = {
         if (sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").length > 0)
         {
           sender.activeCell.node.getElementsByClassName("jp-InputPrompt").item(0).appendChild(b2);
+          sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b4);
+          sender.activeCell.node.getElementsByClassName("jp-OutputPrompt").item(0).appendChild(b5);
         }
+
+        isFW = false;
   
         } 
 
